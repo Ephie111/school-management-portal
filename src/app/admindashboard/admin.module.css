@@ -1,0 +1,265 @@
+
+.dashboardWrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #fff;
+  padding: 20px;
+  border-right: 1px solid grey;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+}
+
+.sidebar ul { 
+  list-style: none; 
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar li i { 
+  color: black; 
+}
+
+.profile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.profileText h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.dashboardItem {
+  background-color: #ccc;
+  padding: 3px 5px;
+  text-align: center;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.mainSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.searchBar {
+  width: calc(100% - 40px);
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #fafafa;
+  margin: 20px;
+  margin-top: 39px;
+  border-radius: 20px;
+  background-color: rgba(66, 173, 226, 0.11);
+ 
+}
+
+.searchBar::placeholder {
+  color: #a09c9c;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.headerGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 0 20px 20px;
+}
+
+.headerGrid .gridItem {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.gridItem:nth-child(1) { background-color: #d9d9f3; }
+.gridItem:nth-child(2) { background-color: #8dcbc4; }
+.gridItem:nth-child(3) { background-color: #f3acac; }
+.gridItem:nth-child(4) { background-color: #edd3d3; }
+
+.gridItem h3 {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.gridItem h1 {
+  font-weight: 700;
+}
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 0 20px 20px;
+  overflow-y: auto;
+  flex: 1;
+  
+}
+
+.card {
+  background: rgb(255, 253, 253);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card h3 { 
+  margin-bottom: 15px; 
+  font-weight: 700;
+
+}
+
+.card p { 
+  color: #333; 
+  line-height: 1.8; 
+}
+
+.rightPanel {
+  width: 300px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+.rightPanel h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.rightPanel a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  margin-top: 20px;
+  color: #9d9dc5;
+  text-decoration: none;
+}
+
+.rightPanel a i {
+  color: black;
+}
+
+.barChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 250px;
+  margin-top: 80px;
+  padding: 1px;
+  background-color: #eee;
+  border-radius: 8px;
+}
+
+.barChart div {
+  width: 20px;
+  background-color: #0c0c0c;
+}
+
+.bar1 { height: 40%; }
+.bar2 { height: 60%; }
+.bar3 { height: 30%; }
+.bar4 { height: 80%; }
+.bar5 { height: 40%; }
+.bar6 { height: 60%; }
+.bar7 { height: 30%; }
+.bar8 { height: 80%; }
+
+/* Hamburger for sidebar */
+.hamburger {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  font-size: 20px;
+  z-index: 1001;
+  cursor: pointer;
+  color: #000;
+  background: none;
+  border: none;
+  display: none;
+}
+
+/* Toggle button for right panel */
+.rightToggleLabel {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  font-size: 20px;
+  z-index: 1001;
+  cursor: pointer;
+  color: #000;
+  background: none;
+  border: none;
+  display: none;
+}
+
+.graphTitle {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 992px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0) !important;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .headerGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .rightPanel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    transform: translateX(100%);
+    z-index: 1000;
+  }
+
+  .rightPanelOpen {
+    transform: translateX(0) !important;
+  }
+
+  .rightToggleLabel {
+    display: block;
+  }
+}

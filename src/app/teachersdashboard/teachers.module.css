@@ -1,0 +1,406 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Mobile Toggle Buttons */
+.mobileToggle {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileToggleLeft {
+  left: 10px;
+  top: 10px;
+}
+
+.mobileToggleRight {
+  right: 10px;
+  top: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar .profileInfo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profilePhoto {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profileInfo h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.profileInfo h4 {
+  font-size: 12px;
+  color: #555;
+}
+
+.nav {
+  width: 100%;
+}
+
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #111;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+
+.nav a:hover {
+  background: #f0f0f0;
+}
+
+.nav span {
+  font-size: 16px;
+  color: black;
+}
+
+/* Dashboard item */
+.dashboardItem {
+  background-color: #ccc;
+  text-align: center;
+  padding: 2px 4px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+/* Content Area */
+.contentArea {
+  display: flex;
+  flex: 1;
+  padding: 25px;
+  gap: 25px;
+}
+
+/* Main Content */
+.mainContent {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.header {
+  padding: 10px;
+}
+
+.searchBar {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+
+/* Top Grid - Always horizontal */
+.topGridContainer {
+  background: rgba(237, 211, 211, 0.2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.topGridContainer .card {
+  text-align: center;
+}
+
+.topGridContainer .card h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.topGridContainer .card p {
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(15, 15, 15);
+}
+
+/* Middle Grids */
+.middleGrids {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.grid {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.schedule { background: rgba(217, 217, 243, 100); }
+.attendance { background: rgba(141, 203, 196, 100); }
+.grade { background: rgba(243, 172, 172, 100); }
+
+.grid h4 {
+  margin-bottom: 10px;
+  font-weight:bold;
+}
+
+/* Other Sections */
+.upcomingEvents, .messages, .announcements {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.upcomingEvents p, .messages p, .announcements p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.upcomingEvents h4, .messages h4, .announcements h4 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.upcomingEvents .eventTitle {
+  margin-right: 60px;
+}
+
+/* Right Sidebar */
+.rightSidebar {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  transition: transform 0.3s ease;
+}
+
+.calendar h4, .professionalDevelopment h4, .performanceChart h4 {
+  font-weight: bold;
+}
+
+.rightSidebar > div {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+/* Calendar */
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.calendarGrid span {
+  display: inline-block;
+  padding: 8px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.calendarGrid .today {
+  background: rgba(141, 203, 196, 100);
+  color: white;
+  font-weight: bold;
+}
+
+/* Training and Performance */
+.trainingResources, .certificationTracking {
+  margin-top: 15px;
+  padding-left: 10px;
+  background-color: #eef;
+  border-radius: 5px;
+}
+
+.trainingResources h5, .certificationTracking h5 {
+  margin-bottom: 5px;
+  font-size: 14px;
+  padding-top: 8px;
+}
+
+.trainingResources p, .certificationTracking p {
+  font-size: 12px;
+  padding: 5px 0;
+}
+
+.performanceChart .subject {
+  margin-top: 15px;
+}
+
+.performanceChart .subject span {
+  display: inline-block;
+  width: 80px;
+  font-size: 14px;
+}
+
+.performanceChart .bar {
+  background: #ddd;
+  height: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: inline-block;
+  width: calc(100% - 90px);
+  vertical-align: middle;
+}
+
+.performanceChart .fill {
+  height: 100%;
+  background: #111;
+  border-radius: 10px;
+}
+
+/* Overlay for mobile */
+.sidebarOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 900;
+  display: none;
+}
+
+/* Checkbox hack for toggling sidebars */
+.toggleCheckbox {
+  display: none;
+}
+
+/* Active state for sidebars */
+.sidebar.active,
+.rightSidebar.active {
+  transform: translateX(0) !important;
+}
+
+/* Mobile styles */
+@media (max-width: 992px) {
+  .mobileToggle {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 950;
+    transform: translateX(-100%);
+  }
+
+  .rightSidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: 950;
+    transform: translateX(100%);
+    overflow-y: auto;
+  }
+
+  /* Left sidebar toggle */
+  #leftToggleCheckbox:checked ~ .sidebar {
+    transform: translateX(0);
+  }
+
+  #leftToggleCheckbox:checked ~ .sidebarOverlay {
+    display: block;
+  }
+
+  /* Right sidebar toggle */
+  #rightToggleCheckbox:checked ~ .contentArea .rightSidebar {
+    transform: translateX(0);
+  }
+
+  #rightToggleCheckbox:checked ~ .sidebarOverlay {
+    display: block;
+  }
+
+  /* Hide other sidebar when one is open */
+  #leftToggleCheckbox:checked ~ .contentArea .rightSidebar {
+    transform: translateX(100%);
+  }
+
+  #rightToggleCheckbox:checked ~ .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .contentArea {
+    padding: 60px 15px 15px;
+  }
+
+  /* Only stack the middle grids on mobile */
+  .middleGrids {
+    grid-template-columns: 1fr;
+  }
+
+  /* Make top grid items smaller on mobile to fit */
+  .topGridContainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding: 15px;
+  }
+  
+  .topGridContainer .card h4 {
+    font-size: 14px;
+  }
+  
+  .topGridContainer .card p {
+    font-size: 11px;
+  }
+}
+
+/* Very small screens adjustment */
+@media (max-width: 480px) {
+  .topGridContainer {
+    gap: 5px;
+    padding: 10px;
+  }
+  
+  .topGridContainer .card h4 {
+    font-size: 13px;
+  }
+  
+  .topGridContainer .card p {
+    font-size: 10px;
+  }
+}
