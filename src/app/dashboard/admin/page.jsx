@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './admin.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-export default function AdminDashboardPage() {
+export default function AdminPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rightPanelOpen, setRightPanelOpen] = useState(false);
 

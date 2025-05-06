@@ -6,7 +6,7 @@ import Head from 'next/head';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
-export default function TeachersDashboardPage() {
+export default function TeachersPage() {
   const [leftToggle, setLeftToggle] = useState(false);
   const [rightToggle, setRightToggle] = useState(false);
 

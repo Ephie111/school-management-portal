@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import Head from 'next/head';
-import styles from './studentdashboard.module.css';
+import styles from './student.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
-export default function StudentDashboardPage() {
+export default function StudentPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
