@@ -1,18 +1,3 @@
-/* Global Reset (applies to all elements) */
-:global(*) {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-:global(html),
-:global(body) {
-  height: 100%;
-  font-family: 'Roboto', sans-serif;
-  background-color: #ffffff;
-  overflow-x: hidden;
-}
-
 /* Container Setup */
 .container {
   display: flex;
