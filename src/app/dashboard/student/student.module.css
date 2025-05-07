@@ -5,7 +5,7 @@
   min-height: 100vh;
 }
 
-:global(main) {
+.container main {
   display: flex;
   flex: 1;
 }
@@ -56,13 +56,13 @@
   border-radius: 5px;
 }
 
-.sidebar ul {
+.sidebarList {
   list-style: none;
   flex-grow: 1;
   padding: 0;
 }
 
-.sidebar li {
+.sidebarList li {
   padding: 10px 10px;
   display: flex;
   align-items: center;
@@ -71,11 +71,11 @@
   transition: background 0.2s;
 }
 
-.sidebar li:hover {
+.sidebarList li:hover {
   background: #f0f0f0;
 }
 
-.sidebar li i {
+.sidebarList li i {
   margin-right: 10px;
   color: #333;
 }
@@ -108,9 +108,8 @@
   opacity: 0.1;
 }
 
-:global(input::placeholder) {
+.searchBar::placeholder {
   color: black;
-  
 }
 
 .downloadBtn {
@@ -142,31 +141,30 @@
   font-weight: bold;
 }
 
-.card table,
-.card ul {
+.dataTable {
   width: 100%;
   font-size: 14px;
-}
-
-:global(table) {
   border-collapse: collapse;
 }
 
-:global(th),
-:global(td) {
+.dataTable th,
+.dataTable td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ccc;
 }
 
-.announcements li,
-.feesInfo p,
-.homework li,
-.messages li {
+.cardList {
+  width: 100%;
+  font-size: 14px;
+  padding-left: 20px;
+}
+
+.cardList li {
   margin-bottom: 20px;
 }
 
-:global(footer) {
+.footer {
   background: #ccc;
   color: #0a0a0a;
   text-align: center;

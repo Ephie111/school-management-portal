@@ -5,7 +5,6 @@ import Head from 'next/head';
 import styles from './student.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
 export default function StudentPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -46,7 +45,7 @@ export default function StudentPage() {
               </div>
             </div>
 
-            <ul>
+            <ul className={styles.sidebarList}>
               <div className={styles.dashboardItem}>
                 <li><i className="fas fa-tachometer-alt"></i> Dashboard</li>
               </div>
@@ -57,7 +56,7 @@ export default function StudentPage() {
             </ul>
 
             <div className={styles.logout}>
-              <ul>
+              <ul className={styles.sidebarList}>
                 <li><i className="fas fa-sign-out-alt"></i> Logout</li>
               </ul>
             </div>
@@ -91,7 +90,7 @@ export default function StudentPage() {
             <div className={styles.gridContainer}>
               <div className={`${styles.card} ${styles.results}`}>
                 <h3><i className="fas fa-chart-bar"></i> View Results</h3>
-                <table>
+                <table className={styles.dataTable}>
                   <thead>
                     <tr><th>Subject</th><th>Score</th><th>Grade</th></tr>
                   </thead>
@@ -105,7 +104,7 @@ export default function StudentPage() {
 
               <div className={`${styles.card} ${styles.announcements}`}>
                 <h3><i className="fas fa-bullhorn"></i> Announcements</h3>
-                <ul>
+                <ul className={styles.cardList}>
                   <li>School will be closed on December 25th for the holidays.</li>
                   <li>Final exams start on January 10th.</li>
                   <li>Parent-Teacher meetings on January 15th.</li>
@@ -120,7 +119,7 @@ export default function StudentPage() {
 
               <div className={`${styles.card} ${styles.homework}`}>
                 <h3><i className="fas fa-book"></i> Assignments</h3>
-                <ul>
+                <ul className={styles.cardList}>
                   <li>Math: Complete exercises 1-10 from the textbook.</li>
                   <li>Science: Write a report on the solar system.</li>
                   <li>English: Read chapters 5-6 and answer questions.</li>
@@ -130,7 +129,7 @@ export default function StudentPage() {
           </div>
         </main>
 
-        <footer>
+        <footer className={styles.footer}>
           <p>&copy; 2025 Everlasting School Portal. All rights reserved.</p>
         </footer>
       </div>
