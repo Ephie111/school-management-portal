@@ -1,3 +1,5 @@
+
+
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./signup.module.css";
@@ -83,7 +85,7 @@ export default function SignupPage() {
           </form>
 
           <div className={styles.loginLink}>
-            Already have an account? <Link href="/login">Log In</Link>
+            Already have an account?{" "} <Link href="/login">Log In</Link>
           </div>
         </div>
       </div>
