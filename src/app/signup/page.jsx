@@ -83,7 +83,7 @@ export default function SignupPage() {
           </form>
 
           <div className={styles.loginLink}>
-            Already have an account? <link href="/login">Log In</link>
+            Already have an account? <Link href="/login">Log In</Link>
           </div>
         </div>
       </div>
