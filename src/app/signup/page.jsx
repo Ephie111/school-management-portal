@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./signup.module.css";
 
 export default function SignupPage() {
@@ -77,12 +78,12 @@ export default function SignupPage() {
                   height={20}
                 />
                 Sign Up with Google
-              </button>  
+              </button>
             </div>
           </form>
 
           <div className={styles.loginLink}>
-            Already have an account? <a href="#">Log In</a>
+            Already have an account? <link href="/login">Log In</link>
           </div>
         </div>
       </div>

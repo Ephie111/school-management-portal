@@ -1,5 +1,8 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import styles from './login.module.css';
+
+
 export default function LoginPage() {
   return (
       <div className={styles.loginContainer}>
@@ -61,7 +64,7 @@ export default function LoginPage() {
               </div>
             </form>
             <div className={styles.loginLink}>
-              Already have an account? <a href="#">Sign Up</a>
+              Already have an account? <link href="/signup">Sign Up</link>
             </div>
           </div>
         </div>
