@@ -1,7 +1,13 @@
-'use client';
+"use client";
 
-import Login from './login/page';
+import Link from "next/link";
 
 export default function Home() {
-  return <Login />;
+  return (
+    <div className="bg-black">
+      <h1>School Management Portal</h1>
+
+      <Link className="mr-4 underLine" href="/login"></Link>
+    </div>
+  );
 }
