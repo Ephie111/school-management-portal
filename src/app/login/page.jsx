@@ -1,8 +1,68 @@
-import Head from "next/head";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { 
+  auth, 
+  provider,
+  signInWithEmailAndPassword,
+  signInWithPopup
+} from "@/app/firebase";
 import Link from "next/link";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    // This effect just checks if user is logged in, but doesn't redirect
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsCheckingAuth(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleEmailLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/student");
+    } catch (error) {
+      console.error("Login error:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await signInWithPopup(auth, provider);
+      router.push("/student");
+    } catch (error) {
+      console.error("Google login error:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (isCheckingAuth) {
+    return <div className={styles.loginContainer}>Checking authentication...</div>;
+  }
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.images}>
@@ -65,31 +125,60 @@ export default function LoginPage() {
           </svg>
         </div>
       </div>
+
       <div className={styles.accountForm}>
         <div className={styles.formWrapper}>
           <h3>Welcome Back!</h3>
           <h5>Please enter your details</h5>
-          <form className={styles.formContainer}>
+          
+          {error && <div className={styles.error}>{error}</div>}
+          
+          <form className={styles.formContainer} onSubmit={handleEmailLogin}>
             <div className={styles.inputLine}>
               <h5>Email</h5>
-              <input type="email" required />
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required 
+                disabled={loading} 
+              />
             </div>
+            
             <div className={styles.inputLine}>
               <h5>Password</h5>
-              <input type="password" required />
+              <input 
+                type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required 
+                disabled={loading} 
+              />
             </div>
+            
             <div className={styles.forgotPassword}>
-              <a href="#">Forgot Password?</a>
+              <Link href="#">Forgot Password?</Link>
             </div>
+            
             <div className={styles.buttons}>
-              <button type="submit">Log In</button>
-              <button type="button" className={styles.google}>
-                <img src="/google.jpeg" alt="Google Logo" /> Log In with Google
+              <button type="submit" disabled={loading}>
+                {loading ? "Loading..." : "Log In"}
+              </button>
+              
+              <button
+                type="button"
+                className={styles.google}
+                onClick={handleGoogleLogin}
+                disabled={loading}
+              >
+                <img src="/google.jpeg" alt="Google Logo" />
+                {loading ? "Signing In..." : "Log In with Google"}
               </button>
             </div>
           </form>
+          
           <div className={styles.loginLink}>
-            Already have an account?{" "} <Link href="/signup">Sign Up</Link>
+            Don't have an account? <Link href="/signup">Sign Up</Link>
           </div>
         </div>
       </div>

@@ -1,10 +1,86 @@
+"use client";
 
-
-import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { 
+  auth, 
+  provider,
+  createUserWithEmailAndPassword,
+  signInWithPopup
+} from "@/app/firebase";
 import Link from "next/link";
 import styles from "./signup.module.css";
 
 export default function SignupPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleEmailSignup = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    if (password !== confirmPassword) {
+      setError("Passwords don't match");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push("/login");
+    } catch (error) {
+      console.error("Signup error:", error);
+      
+      // User-friendly error messages
+      if (error.code === 'auth/email-already-in-use') {
+        setError('This email is already registered. Please log in instead.');
+      } 
+      else if (error.code === 'auth/invalid-email') {
+        setError('Please enter a valid email address.');
+      }
+      else if (error.code === 'auth/weak-password') {
+        setError('Password should be at least 6 characters.');
+      }
+      else if (error.code === 'auth/operation-not-allowed') {
+        setError('Email/password sign-up is currently disabled.');
+      }
+      else {
+        setError('Something went wrong. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await signInWithPopup(auth, provider);
+      router.push("/student");
+    } catch (error) {
+      console.error("Google signup error:", error);
+      
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        setError('This email is already registered with another method.');
+      }
+      else if (error.code === 'auth/popup-closed-by-user') {
+        setError('Sign up was cancelled. Please try again.');
+      }
+      else {
+        setError('Google sign up failed. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <div className={styles.signupContainer}>
       <div className={styles.images}>
@@ -47,45 +123,67 @@ export default function SignupPage() {
           </svg>
         </div>
       </div>
+      
       <div className={styles.accountForm}>
         <div className={styles.formWrapper}>
           <h3>Create Your Account</h3>
           <h5>Please enter your details</h5>
-
-          <form className={styles.formContainer}>
+          
+          {error && <div className={styles.error}>{error}</div>}
+          
+          <form className={styles.formContainer} onSubmit={handleEmailSignup}>
             <div className={styles.inputLine}>
               <h5>Email</h5>
-              <input type="email" required />
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required 
+                disabled={loading}
+              />
             </div>
+            
             <div className={styles.inputLine}>
               <h5>Password</h5>
-              <input type="password" required />
+              <input 
+                type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required 
+                disabled={loading}
+              />
             </div>
+            
             <div className={styles.inputLine}>
               <h5>Confirm Password</h5>
-              <input type="password" required />
+              <input 
+                type="password" 
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required 
+                disabled={loading}
+              />
             </div>
-
-            <div className={styles.forgotPassword}>
-              <a href="#">Forgot Password?</a>
-            </div>
-
+            
             <div className={styles.buttons}>
-              <button type="submit">Sign Up</button>
-              <button type="button" className={styles.google}>
-                <img
-                  src="/google.jpeg"
-                  alt="Google Logo"
-                  width={20}
-                  height={20}
-                />
-                Sign Up with Google
+              <button type="submit" disabled={loading}>
+                {loading ? "Creating Account..." : "Sign Up"}
+              </button>
+              
+              <button 
+                type="button" 
+                className={styles.google}
+                onClick={handleGoogleSignup}
+                disabled={loading}
+              >
+                <img src="/google.jpeg" alt="Google Logo" width={20} height={20} />
+                {loading ? "Signing Up..." : "Sign Up with Google"}
               </button>
             </div>
           </form>
-
+          
           <div className={styles.loginLink}>
-            Already have an account?{" "} <Link href="/login">Log In</Link>
+            Already have an account? <Link href="/login">Log In</Link>
           </div>
         </div>
       </div>
