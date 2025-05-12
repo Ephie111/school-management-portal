@@ -1,29 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import "./global.css"; // Import global CSS
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white rounded-xl shadow-md p-10 w-full max-w-xl text-center border border-gray-200">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-4">
+    <main className="main-container">
+      <div className="auth-card">
+        <h1 className="auth-title">
           School Management Portal
         </h1>
-        <p className="text-gray-600 mb-8">
+        <p className="auth-description">
           A centralized platform for managing academic activities, student records, and communication.
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/login"
-            className="inline-block bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition"
-          >
+        <div className="auth-buttons-container">
+          <Link href="/login" className="btn-primary">
             Login
           </Link>
-          <Link
-            href="/signup"
-            className="inline-block border border-gray-300 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-50 transition"
-          >
+          <Link href="/signup" className="btn-secondary">
             Create Account
           </Link>
         </div>
