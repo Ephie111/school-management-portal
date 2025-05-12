@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { 
-  auth, 
+import {
+  auth,
   provider,
   createUserWithEmailAndPassword,
-  signInWithPopup
+  signInWithPopup,
 } from "@/app/firebase";
 import Link from "next/link";
 import styles from "./signup.module.css";
@@ -35,22 +35,18 @@ export default function SignupPage() {
       router.push("/login");
     } catch (error) {
       console.error("Signup error:", error);
-      
+
       // User-friendly error messages
-      if (error.code === 'auth/email-already-in-use') {
-        setError('This email is already registered. Please log in instead.');
-      } 
-      else if (error.code === 'auth/invalid-email') {
-        setError('Please enter a valid email address.');
-      }
-      else if (error.code === 'auth/weak-password') {
-        setError('Password should be at least 6 characters.');
-      }
-      else if (error.code === 'auth/operation-not-allowed') {
-        setError('Email/password sign-up is currently disabled.');
-      }
-      else {
-        setError('Something went wrong. Please try again.');
+      if (error.code === "auth/email-already-in-use") {
+        setError("This email is already registered. Please log in instead.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("Please enter a valid email address.");
+      } else if (error.code === "auth/weak-password") {
+        setError("Password should be at least 6 characters.");
+      } else if (error.code === "auth/operation-not-allowed") {
+        setError("Email/password sign-up is currently disabled.");
+      } else {
+        setError("Something went wrong. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -66,21 +62,19 @@ export default function SignupPage() {
       router.push("/student");
     } catch (error) {
       console.error("Google signup error:", error);
-      
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        setError('This email is already registered with another method.');
-      }
-      else if (error.code === 'auth/popup-closed-by-user') {
-        setError('Sign up was cancelled. Please try again.');
-      }
-      else {
-        setError('Google sign up failed. Please try again.');
+
+      if (error.code === "auth/account-exists-with-different-credential") {
+        setError("This email is already registered with another method.");
+      } else if (error.code === "auth/popup-closed-by-user") {
+        setError("Sign up was cancelled. Please try again.");
+      } else {
+        setError("Google sign up failed. Please try again.");
       }
     } finally {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className={styles.signupContainer}>
       <div className={styles.images}>
@@ -114,7 +108,7 @@ export default function SignupPage() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 395 395"
           >
-            <g id="SVGRepo_iconCarrier">
+            <g>
               <path d="M313.001,0H81.999C36.785,0,0,36.784,0,81.998v230.993C0,358.211,36.785,395,81.999,395h231.002 C358.216,395,395,358.211,395,312.991V81.998C395,36.784,358.216,0,313.001,0z M380,312.991C380,349.94,349.945,380,313.001,380 H81.999C45.056,380,15,349.94,15,312.991V81.998C15,45.055,45.056,15,81.999,15h231.002C349.945,15,380,45.055,380,81.998V312.991z"></path>
               <path d="M342.641,258.162v-64.777c0,0-4.857-37.577-7.21-56.366c-2.159-15.756-9.991-40.049-84.894-40.049 c-74.905,0-82.893,24.297-85.054,40.049c-2.355,18.789-4.703,37.578-7.054,56.366v64.779c-1.657,1.255-2.733,3.238-2.733,5.475 v9.901c0,3.792,3.079,6.872,6.872,6.872h14.766v11.951c0,2.545,2.061,4.605,4.605,4.605h14.73c2.539,0,4.605-2.06,4.605-4.605 v-11.951h98.52v11.951c0,2.545,2.063,4.605,4.605,4.605h14.73c2.545,0,4.608-2.06,4.608-4.605v-11.951h14.766 c3.792,0,6.871-3.08,6.871-6.872v-9.901C345.376,261.401,344.299,259.418,342.641,258.162z M220.622,114.053h59.824 c2.471,0,4.466,2.003,4.466,4.47c0,2.465-1.995,4.467-4.466,4.467h-59.824c-2.468,0-4.463-2.002-4.463-4.467 C216.159,116.056,218.154,114.053,220.622,114.053z M204.951,246.511c-7.629,0-13.81-6.186-13.81-13.811 c0-7.631,6.181-13.811,13.81-13.811c7.627,0,13.809,6.181,13.809,13.811C218.76,240.324,212.578,246.511,204.951,246.511z M296.122,246.511c-7.631,0-13.812-6.186-13.812-13.811c0-7.631,6.181-13.811,13.812-13.811c7.625,0,13.809,6.181,13.809,13.811 C309.932,240.324,303.747,246.511,296.122,246.511z M309.639,186.591c-2.82,0-5.872,0-9.108,0c-0.94-3.4-2.102-5.98-3.57-8.049 c-4.451-6.285-11.221-6.807-17.209-6.807c-5.992,0-12.758,0.521-17.205,6.807c-1.468,2.069-2.63,4.649-3.57,8.049 c-24.628-0.001-50.35-0.001-67.541,0.001c-3.91,0-6.891-3.073-6.652-6.87c0.735-11.832,1.477-23.664,2.219-35.496 c0.234-3.796,3.414-6.875,7.093-6.875c28.692,0,84.187,0,112.881,0c3.679,0,6.857,3.079,7.096,6.875 c0.737,11.832,1.476,23.664,2.214,35.496C316.524,183.519,313.545,186.591,309.639,186.591z"></path>
               <path d="M266.439,151.769c-0.395,1.298-0.615,2.672-0.615,4.098c0,7.691,6.236,13.921,13.927,13.921 c7.692,0,13.93-6.229,13.93-13.921c0-1.426-0.222-2.8-0.622-4.098l4.103-7.035H262.34L266.439,151.769z"></path>
@@ -123,65 +117,70 @@ export default function SignupPage() {
           </svg>
         </div>
       </div>
-      
+
       <div className={styles.accountForm}>
         <div className={styles.formWrapper}>
           <h3>Create Your Account</h3>
           <h5>Please enter your details</h5>
-          
+
           {error && <div className={styles.error}>{error}</div>}
-          
+
           <form className={styles.formContainer} onSubmit={handleEmailSignup}>
             <div className={styles.inputLine}>
               <h5>Email</h5>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required 
+                required
                 disabled={loading}
               />
             </div>
-            
+
             <div className={styles.inputLine}>
               <h5>Password</h5>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required 
+                required
                 disabled={loading}
               />
             </div>
-            
+
             <div className={styles.inputLine}>
               <h5>Confirm Password</h5>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                required 
+                required
                 disabled={loading}
               />
             </div>
-            
+
             <div className={styles.buttons}>
               <button type="submit" disabled={loading}>
                 {loading ? "Creating Account..." : "Sign Up"}
               </button>
-              
-              <button 
-                type="button" 
+
+              <button
+                type="button"
                 className={styles.google}
                 onClick={handleGoogleSignup}
                 disabled={loading}
               >
-                <img src="/google.jpeg" alt="Google Logo" width={20} height={20} />
+                <img
+                  src="/google.jpeg"
+                  alt="Google Logo"
+                  width={20}
+                  height={20}
+                />
                 {loading ? "Signing Up..." : "Sign Up with Google"}
               </button>
             </div>
           </form>
-          
+
           <div className={styles.loginLink}>
             Already have an account? <Link href="/login">Log In</Link>
           </div>
