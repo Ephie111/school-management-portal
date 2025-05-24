@@ -32,8 +32,10 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 10px;
-  margin-left: 50px;
+  margin: 0 auto 10px auto; /* Center the photo */
+  display: block;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .profileText h2 {
@@ -101,7 +103,7 @@
 .searchBar {
   padding: 10px;
   width: 100%;
-  max-width: 700px;
+  max-width: 650px;
   border: none;
   border-radius: 25px;
   background-color: #42ade2;
@@ -123,7 +125,8 @@
 }
 
 .gridContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -131,6 +134,7 @@
 .card {
   background: #ffffff;
   border-radius: 8px;
+  min-height: 200px;
   padding: 20px;
   flex: 1 1 calc(50% - 20px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -231,7 +235,7 @@
   }
 
   .content {
-    padding: 0px 20px 20px 20px;
+    padding: 0px 20px 20px 30px;
   }
 
   .searchBar {
@@ -239,7 +243,7 @@
   }
 
   .gridContainer {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .card {
@@ -252,4 +256,20 @@
   .menuIcon {
     display: none !important;
   }
+}
+/* Add these to student.module.css */
+.initialsAvatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 32px; /* Increased font size */
+  font-weight: bold;
+  margin: 0 auto 10px auto; /* Center the avatar */
+  border: 1px solid #ddd;
+  overflow: hidden; /* Ensures perfect circle */
 }
