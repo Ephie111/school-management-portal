@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 export default function StudentPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Static version for avatar PR
+  // static version for avatar Pull Request
   const getInitials = () => 'US';
   const getDisplayName = () => 'User';
   const getShortName = () => 'User';
@@ -21,7 +21,7 @@ export default function StudentPage() {
       <Head><title>Student Dashboard</title></Head>
       <div className={styles.container}>
         <main>
-          {/* Sidebar with Avatar */}
+          {/* Sidebar with Avatar profile*/}
           <div className={`${styles.sidebar} ${menuOpen ? styles.sidebarOpen : ''}`}>
             <div className={styles.profileInfo}>
               <div className={styles.initialsAvatar}>
