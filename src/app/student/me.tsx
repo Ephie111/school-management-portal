@@ -1,12 +1,25 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from './student.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { auth, signOut } from '@/app/firebase';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
 export default function StudentPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -14,6 +27,49 @@ export default function StudentPage() {
 
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+  const getInitials = (name?: string | null) => {
+    if (!name) return 'US';
+    
+    // Remove email domain if it's an email
+    const cleanName = name.includes('@') ? name.split('@')[0] : name;
+    
+    const names = cleanName.split(' ').filter(name => name.length > 0);
+    
+    if (names.length === 0) return 'US';
+    
+    // Get first two letters of the first name if only one name
+    if (names.length === 1) {
+      return names[0].substring(0, 2).toUpperCase();
+    }
+    // Get first letter of first and last name
+    return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
+  };
+
+  const getDisplayName = () => {
+    if (!currentUser) return 'User';
+    return currentUser.displayName || currentUser.email?.split('@')[0] || 'User';
+  };
+
+  const getShortName = () => {
+    if (!currentUser) return 'User';
+    if (currentUser.displayName) {
+      return currentUser.displayName.split(' ')[0];
+    }
+    if (currentUser.email) {
+      return currentUser.email.split('@')[0];
+    }
+    return 'User';
   };
 
   return (
@@ -24,23 +80,27 @@ export default function StudentPage() {
 
       <div className={styles.container}>
         <main>
-          {/* Toggle Menu Icon */}
           <button onClick={toggleMenu} className={styles.menuIcon}>
             <i className="fas fa-bars"></i>
           </button>
 
-          {/* Sidebar */}
           <div
             className={`${styles.sidebar} ${menuOpen ? styles.sidebarOpen : ''}`}
           >
             <div className={styles.profileInfo}>
-              <img
-                src="/profile_pic.jpeg"
-                alt="Profile"
-                className={styles.profilePhoto}
-              />
+              {currentUser?.photoURL ? (
+                <img
+                  src={currentUser.photoURL}
+                  alt="Profile"
+                  className={styles.profilePhoto}
+                />
+              ) : (
+                <div className={styles.initialsAvatar}>
+                  {getInitials(currentUser?.displayName || currentUser?.email)}
+                </div>
+              )}
               <div className={styles.profileText}>
-                <h2>John Doe</h2>
+                <h2>{getDisplayName()}</h2>
                 <p>Class: 5th Grade</p>
               </div>
             </div>
@@ -57,12 +117,11 @@ export default function StudentPage() {
 
             <div className={styles.logout}>
               <ul className={styles.sidebarList}>
-                <li><i className="fas fa-sign-out-alt"></i> Logout</li>
+                <li onClick={handleLogout}><i className="fas fa-sign-out-alt"></i> Logout</li>
               </ul>
             </div>
           </div>
 
-          {/* Overlay to close sidebar on mobile */}
           <div
             className={styles.sidebarOverlay}
             style={{
@@ -72,10 +131,9 @@ export default function StudentPage() {
             onClick={closeMenu}
           ></div>
 
-          {/* Main Content */}
           <div className={styles.content}>
             <div className={styles.topbar}>
-              <h2>Welcome, John Doe</h2>
+              <h2>Welcome, {getShortName()}</h2>
               <input
                 className={styles.searchBar}
                 type="text"
@@ -130,7 +188,7 @@ export default function StudentPage() {
         </main>
 
         <footer className={styles.footer}>
-          <p>&copy; 2025 Everlasting School Portal. All rights reserved.</p>
+          <p>&copy; 2025 School Portal. All rights reserved.</p>
         </footer>
       </div>
     </>

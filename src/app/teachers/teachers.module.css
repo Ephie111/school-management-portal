@@ -312,6 +312,65 @@
   transform: translateX(0) !important;
 }
 
+.profilePhoto {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 10px;
+  display: block;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.initialsAvatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0 auto 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profileInfo h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.profileInfo h4 {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.welcomeMessage {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* Add smooth transitions for sidebar */
+.sidebar, .rightSidebar {
+  transition: transform 0.3s ease-in-out;
+}
+
 /* Mobile styles */
 @media (max-width: 992px) {
   .mobileToggle {
