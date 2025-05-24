@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from './student.module.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { auth } from '@/app/firebase';
+import { auth, signOut } from '@/app/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
 export default function StudentPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,31 +29,13 @@ export default function StudentPage() {
     setMenuOpen(false);
   };
 
-  const getInitials = (name?: string | null) => {
-    if (!name) return 'US';
-    const cleanName = name.includes('@') ? name.split('@')[0] : name;
-    const names = cleanName.split(' ').filter(name => name.length > 0);
-    if (names.length === 0) return 'US';
-    if (names.length === 1) {
-      return names[0].substring(0, 2).toUpperCase();
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (error) {
+      console.error('Error signing out:', error);
     }
-    return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
-  };
-
-  const getDisplayName = () => {
-    if (!currentUser) return 'User';
-    return currentUser.displayName || currentUser.email?.split('@')[0] || 'User';
-  };
-
-  const getShortName = () => {
-    if (!currentUser) return 'User';
-    if (currentUser.displayName) {
-      return currentUser.displayName.split(' ')[0];
-    }
-    if (currentUser.email) {
-      return currentUser.email.split('@')[0];
-    }
-    return 'User';
   };
 
   return (
@@ -67,20 +51,6 @@ export default function StudentPage() {
           </button>
 
           <div className={`${styles.sidebar} ${menuOpen ? styles.sidebarOpen : ''}`}>
-            <div className={styles.profileInfo}>
-              {currentUser?.photoURL ? (
-                <img src={currentUser.photoURL} alt="Profile" className={styles.profilePhoto} />
-              ) : (
-                <div className={styles.initialsAvatar}>
-                  {getInitials(currentUser?.displayName || currentUser?.email)}
-                </div>
-              )}
-              <div className={styles.profileText}>
-                <h2>{getDisplayName()}</h2>
-                <p>Class: 5th Grade</p>
-              </div>
-            </div>
-
             <ul className={styles.sidebarList}>
               <div className={styles.dashboardItem}>
                 <li><i className="fas fa-tachometer-alt"></i> Dashboard</li>
@@ -90,6 +60,12 @@ export default function StudentPage() {
               <li><i className="fas fa-comments"></i> Messages</li>
               <li><i className="fas fa-user"></i> Profile</li>
             </ul>
+
+            <div className={styles.logout}>
+              <ul className={styles.sidebarList}>
+                <li onClick={handleLogout}><i className="fas fa-sign-out-alt"></i> Logout</li>
+              </ul>
+            </div>
           </div>
 
           <div
@@ -103,7 +79,7 @@ export default function StudentPage() {
 
           <div className={styles.content}>
             <div className={styles.topbar}>
-              <h2>Welcome, {getShortName()}</h2>
+              <h2>Welcome</h2>
               <input className={styles.searchBar} type="text" placeholder="Search..." />
             </div>
 
